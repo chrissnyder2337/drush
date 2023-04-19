@@ -42,6 +42,8 @@ class FieldInfoCommands extends DrushCommands
      *
      * @default-fields field_name,required,field_type,cardinality
      * @field-labels
+     *      entity_type: Entity type
+     *      bundle: Bundle
      *      label: Label
      *      description: Description
      *      field_name: Field name
@@ -72,14 +74,20 @@ class FieldInfoCommands extends DrushCommands
         $this->input->setArgument('entityType', $entityType = $entityType ?? $this->askEntityType());
         $this->validateEntityType($entityType);
 
-        $this->input->setArgument('bundle', $bundle = $bundle ?? $this->askBundle());
-        $this->validateBundle($entityType, $bundle);
+//        $this->input->setArgument('bundle', $bundle = $bundle ?? $this->askBundle());
+//        $this->validateBundle($entityType, $bundle);
+//
+//        $fieldDefinitions = $this->entityTypeManager
+//            ->getStorage('field_config')
+//            ->loadByProperties([
+//                'entity_type' => $entityType,
+//                'bundle' => $bundle,
+//            ]);
 
         $fieldDefinitions = $this->entityTypeManager
             ->getStorage('field_config')
             ->loadByProperties([
                 'entity_type' => $entityType,
-                'bundle' => $bundle,
             ]);
 
         return $this->getRowsOfFieldsByFieldDefinitions($fieldDefinitions);

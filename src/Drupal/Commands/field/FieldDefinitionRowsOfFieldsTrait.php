@@ -32,8 +32,10 @@ trait FieldDefinitionRowsOfFieldsTrait
         foreach ($fieldDefinitions as $field) {
             $storage = $field->getFieldStorageDefinition();
             $handlerSettings = $field->getSetting('handler_settings');
-
-            $rows[$field->getName()] = [
+            
+            $rows[$field->getTargetEntityTypeId().':'.$field->getTargetBundle().':'.$field->getName()] = [
+                'entity_type' => $field->getTargetEntityTypeId() ?? null,
+                'bundle' => $field->getTargetBundle() ?? null,
                 'label' => $field->getLabel(),
                 'description' => $field->getDescription(),
                 'field_name' => $field->getName(),
